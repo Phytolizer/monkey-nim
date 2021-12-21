@@ -1,2 +1,0 @@
-[
-{"name":"tests/lexer/next_token.nim c","category":"pattern","target":"c","action":"run","result":"reSuccess","expected":"","given":"","machine":"Nebula","commit":"989dec1ea7e","branch":"main"}]
