@@ -26,7 +26,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: jiro4989/setup-nim-action@v1
         with:
-          nim-version: '1.7.1' # default is 'stable'
+          nim-version: 'stable' # default is 'stable'
 
       # Runs a single command using the runners shell
       - name: Run the unit tests
