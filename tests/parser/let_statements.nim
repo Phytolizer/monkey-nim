@@ -1,5 +1,7 @@
 from monkeypkg/lexer import newLexer
 from monkeypkg/parser import newParser, parseProgram
+import common
+import std/strformat
 
 type
   Test = object
@@ -21,4 +23,7 @@ for i, tt in Tests:
   var p = newParser(l)
   let program = p.parseProgram()
   if program.isNil:
-    raiseAssert "parseProgram() returned nil"
+    raiseAssert fmt"tests[{i}] - parseProgram() returned nil"
+  if program.statements.len != 1:
+    raiseAssert fmt"tests[{i}] - program.statements.length is not 1. got={program.statements.len}"
+  checkLetStatement(program.statements[0], tt.expectedIdentifier)

@@ -17,14 +17,14 @@ type
   Program* = ref object of Node
     statements*: seq[Statement]
 
-method tokenLiteral(this: Node): string {.base.} =
+method tokenLiteral*(this: Node): string {.base.} =
   raiseAssert "Node.tokenLiteral was called without being overridden"
 
-method tokenLiteral(this: Program): string =
+method tokenLiteral*(this: Program): string =
   if this.statements.len > 0:
     this.statements[0].tokenLiteral()
   else:
     ""
 
-method tokenLiteral(this: LetStatement): string = this.token.literal
-method tokenLiteral(this: Identifier): string = this.token.literal
+method tokenLiteral*(this: LetStatement): string = this.token.literal
+method tokenLiteral*(this: Identifier): string = this.token.literal
