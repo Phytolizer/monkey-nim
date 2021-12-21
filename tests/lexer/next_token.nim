@@ -13,6 +13,8 @@ const
     };
 
     let result = add(five, ten);
+    !-/*5;
+    5 < 10 > 5;
 """.strip
 
 type
@@ -24,7 +26,7 @@ func newTest(expectedKind: token.Kind, expectedLiteral: string): Test =
   Test(expectedKind: expectedKind, expectedLiteral: expectedLiteral)
 
 const
-  Tests = @[
+  Tests = [
     newTest(token.kLet, "let"),
     newTest(token.kIdent, "five"),
     newTest(token.kAssign, "="),
@@ -60,6 +62,18 @@ const
     newTest(token.kComma, ","),
     newTest(token.kIdent, "ten"),
     newTest(token.kRParen, ")"),
+    newTest(token.kSemicolon, ";"),
+    newTest(token.kBang, "!"),
+    newTest(token.kMinus, "-"),
+    newTest(token.kSlash, "/"),
+    newTest(token.kAsterisk, "*"),
+    newTest(token.kInt, "5"),
+    newTest(token.kSemicolon, ";"),
+    newTest(token.kInt, "5"),
+    newTest(token.kLt, "<"),
+    newTest(token.kInt, "10"),
+    newTest(token.kGt, ">"),
+    newTest(token.kInt, "5"),
     newTest(token.kSemicolon, ";"),
     newTest(token.kEof, "")
   ]

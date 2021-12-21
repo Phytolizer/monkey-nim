@@ -15,6 +15,12 @@ const
 
   kAssign*: Kind = "="
   kPlus*: Kind = "+"
+  kMinus*: Kind = "-"
+  kBang*: Kind = "!"
+  kSlash*: Kind = "/"
+  kAsterisk*: Kind = "*"
+  kLt*: Kind = "<"
+  kGt*: Kind = ">"
 
   kComma*: Kind = ","
   kSemicolon*: Kind = ";"

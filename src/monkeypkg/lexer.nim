@@ -60,6 +60,18 @@ func nextToken*(l: var Lexer): Token =
     result = newToken(token.kComma, l.ch)
   of '+':
     result = newToken(token.kPlus, l.ch)
+  of '!':
+    result = newToken(token.kBang, l.ch)
+  of '-':
+    result = newToken(token.kMinus, l.ch)
+  of '/':
+    result = newToken(token.kSlash, l.ch)
+  of '*':
+    result = newToken(token.kAsterisk, l.ch)
+  of '<':
+    result = newToken(token.kLt, l.ch)
+  of '>':
+    result = newToken(token.kGt, l.ch)
   of '\0':
     result.kind = token.kEof
     result.literal = ""
