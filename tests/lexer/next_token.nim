@@ -21,6 +21,9 @@ const
     } else {
       return false;
     }
+
+    10 == 10;
+    10 != 9;
 """.strip
 
 type
@@ -98,6 +101,14 @@ const
     newTest(token.kFalse, "false"),
     newTest(token.kSemicolon, ";"),
     newTest(token.kRBrace, "}"),
+    newTest(token.kInt, "10"),
+    newTest(token.kEq, "=="),
+    newTest(token.kInt, "10"),
+    newTest(token.kSemicolon, ";"),
+    newTest(token.kInt, "10"),
+    newTest(token.kNotEq, "!="),
+    newTest(token.kInt, "9"),
+    newTest(token.kSemicolon, ";"),
     newTest(token.kEof, "")
   ]
 

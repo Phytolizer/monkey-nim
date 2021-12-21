@@ -22,6 +22,9 @@ const
   kLt*: Kind = "<"
   kGt*: Kind = ">"
 
+  kEq*: Kind = "=="
+  kNotEq*: Kind = "!="
+
   kComma*: Kind = ","
   kSemicolon*: Kind = ";"
 

@@ -7,11 +7,14 @@ type
     readPosition: int
     ch: char
 
-func readChar(l: var Lexer) =
+func peekChar(l: Lexer): char =
   if l.readPosition >= l.input.len:
-    l.ch = '\0'
+    '\0'
   else:
-    l.ch = l.input[l.readPosition]
+    l.input[l.readPosition]
+
+func readChar(l: var Lexer) =
+  l.ch = l.peekChar()
   l.position = l.readPosition
   l.readPosition += 1
 
@@ -45,7 +48,19 @@ func nextToken*(l: var Lexer): Token =
 
   case l.ch:
   of '=':
-    result = newToken(token.kAssign, l.ch)
+    if l.peekChar() == '=':
+      let ch = l.ch
+      l.readChar()
+      result = Token(kind: token.kEq, literal: $ch & $l.ch)
+    else:
+      result = newToken(token.kAssign, l.ch)
+  of '!':
+    if l.peekChar() == '=':
+      let ch = l.ch
+      l.readChar()
+      result = Token(kind: token.kNotEq, literal: $ch & $l.ch)
+    else:
+      result = newToken(token.kBang, l.ch)
   of ';':
     result = newToken(token.kSemicolon, l.ch)
   of '(':
@@ -60,8 +75,6 @@ func nextToken*(l: var Lexer): Token =
     result = newToken(token.kComma, l.ch)
   of '+':
     result = newToken(token.kPlus, l.ch)
-  of '!':
-    result = newToken(token.kBang, l.ch)
   of '-':
     result = newToken(token.kMinus, l.ch)
   of '/':
