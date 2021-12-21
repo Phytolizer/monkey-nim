@@ -15,6 +15,12 @@ const
     let result = add(five, ten);
     !-/*5;
     5 < 10 > 5;
+
+    if (5 < 10) {
+      return true;
+    } else {
+      return false;
+    }
 """.strip
 
 type
@@ -75,6 +81,23 @@ const
     newTest(token.kGt, ">"),
     newTest(token.kInt, "5"),
     newTest(token.kSemicolon, ";"),
+    newTest(token.kIf, "if"),
+    newTest(token.kLParen, "("),
+    newTest(token.kInt, "5"),
+    newTest(token.kLt, "<"),
+    newTest(token.kInt, "10"),
+    newTest(token.kRParen, ")"),
+    newTest(token.kLBrace, "{"),
+    newTest(token.kReturn, "return"),
+    newTest(token.kTrue, "true"),
+    newTest(token.kSemicolon, ";"),
+    newTest(token.kRBrace, "}"),
+    newTest(token.kElse, "else"),
+    newTest(token.kLBrace, "{"),
+    newTest(token.kReturn, "return"),
+    newTest(token.kFalse, "false"),
+    newTest(token.kSemicolon, ";"),
+    newTest(token.kRBrace, "}"),
     newTest(token.kEof, "")
   ]
 

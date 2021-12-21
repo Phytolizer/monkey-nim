@@ -32,10 +32,20 @@ const
 
   kFunction*: Kind = "FUNCTION"
   kLet*: Kind = "LET"
+  kIf*: Kind = "IF"
+  kElse*: Kind = "ELSE"
+  kReturn*: Kind = "RETURN"
+  kTrue*: Kind = "TRUE"
+  kFalse*: Kind = "FALSE"
 
   Keywords = toTable(@[
     ("fn", kFunction),
     ("let", kLet),
+    ("if", kIf),
+    ("else", kElse),
+    ("return", kReturn),
+    ("true", kTrue),
+    ("false", kFalse),
   ])
 
 func lookupIdent*(ident: string): Kind =
