@@ -1,7 +1,7 @@
 from token import Token
 
 type
-  Lexer = object
+  Lexer* = object
     input: string
     position: int
     readPosition: int
