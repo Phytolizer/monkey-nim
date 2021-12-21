@@ -22,8 +22,26 @@ func newLexer*(input: string): Lexer =
 func newToken(kind: token.Kind, literal: char): Token =
   Token(kind: kind, literal: $literal)
 
+func readIdentifier(l: var Lexer): string =
+  let position = l.position
+  while l.ch in 'a'..'z':
+    l.readChar()
+  l.input[position..<l.position]
+
+func readNumber(l: var Lexer): string =
+  let position = l.position
+  while l.ch in '0'..'9':
+    l.readChar()
+  l.input[position..<l.position]
+
+func skipWhitespace(l: var Lexer) =
+  while l.ch in {' ', '\t', '\n', '\r'}:
+    l.readChar()
+
 func nextToken*(l: var Lexer): Token =
   result = Token()
+
+  l.skipWhitespace()
 
   case l.ch:
   of '=':
@@ -45,6 +63,14 @@ func nextToken*(l: var Lexer): Token =
   of '\0':
     result.kind = token.kEof
     result.literal = ""
+  of 'a'..'z':
+    result.literal = l.readIdentifier()
+    result.kind = token.lookupIdent(result.literal)
+    return result
+  of '0'..'9':
+    result.literal = l.readNumber()
+    result.kind = token.kInt
+    return result
   else:
     result = newToken(token.kIllegal, l.ch)
 

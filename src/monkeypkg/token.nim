@@ -1,3 +1,5 @@
+import std/tables
+
 type
   Kind* = string
   Token* = object
@@ -24,3 +26,11 @@ const
 
   kFunction*: Kind = "FUNCTION"
   kLet*: Kind = "LET"
+
+  Keywords = toTable(@[
+    ("fn", kFunction),
+    ("let", kLet),
+  ])
+
+func lookupIdent*(ident: string): Kind =
+  Keywords.getOrDefault(ident, kIdent)

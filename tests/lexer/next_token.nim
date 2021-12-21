@@ -1,9 +1,19 @@
 from monkeypkg/token import nil
 from monkeypkg/lexer import newLexer, nextToken
 import std/strformat
+import std/strutils
 
 const
-  Input = "=+(){},;"
+  Input = """
+    let five = 5;
+    let ten = 10;
+
+    let add = fn(x, y) {
+      x + y;
+    };
+
+    let result = add(five, ten);
+""".strip
 
 type
   Test = object
@@ -15,13 +25,41 @@ func newTest(expectedKind: token.Kind, expectedLiteral: string): Test =
 
 const
   Tests = @[
+    newTest(token.kLet, "let"),
+    newTest(token.kIdent, "five"),
     newTest(token.kAssign, "="),
-    newTest(token.kPlus, "+"),
+    newTest(token.kInt, "5"),
+    newTest(token.kSemicolon, ";"),
+    newTest(token.kLet, "let"),
+    newTest(token.kIdent, "ten"),
+    newTest(token.kAssign, "="),
+    newTest(token.kInt, "10"),
+    newTest(token.kSemicolon, ";"),
+    newTest(token.kLet, "let"),
+    newTest(token.kIdent, "add"),
+    newTest(token.kAssign, "="),
+    newTest(token.kFunction, "fn"),
     newTest(token.kLParen, "("),
+    newTest(token.kIdent, "x"),
+    newTest(token.kComma, ","),
+    newTest(token.kIdent, "y"),
     newTest(token.kRParen, ")"),
     newTest(token.kLBrace, "{"),
+    newTest(token.kIdent, "x"),
+    newTest(token.kPlus, "+"),
+    newTest(token.kIdent, "y"),
+    newTest(token.kSemicolon, ";"),
     newTest(token.kRBrace, "}"),
+    newTest(token.kSemicolon, ";"),
+    newTest(token.kLet, "let"),
+    newTest(token.kIdent, "result"),
+    newTest(token.kAssign, "="),
+    newTest(token.kIdent, "add"),
+    newTest(token.kLParen, "("),
+    newTest(token.kIdent, "five"),
     newTest(token.kComma, ","),
+    newTest(token.kIdent, "ten"),
+    newTest(token.kRParen, ")"),
     newTest(token.kSemicolon, ";"),
     newTest(token.kEof, "")
   ]
