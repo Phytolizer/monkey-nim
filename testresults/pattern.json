@@ -1,2 +1,2 @@
 [
-{"name":"tests/lexer/next_token.nim c","category":"pattern","target":"c","action":"run","result":"reExitcodesDiffer","expected":"exitcode: 0","given":"exitcode: 1\n\nOutput:\n/home/phyto/Documents/monkey-nim/tests/lexer/next_token.nim(35) next_token\n/home/phyto/.choosenim/toolchains/nim-#devel/lib/system/assertions.nim(28) raiseAssert\n/home/phyto/.choosenim/toolchains/nim-#devel/lib/system/fatal.nim(53) sysFatal\nError: unhandled exception: tests[0] - tokentype wrong. expected='=', got='' [AssertionDefect]\n","machine":"Nebula","commit":"489d5903e3c","branch":"main"}]
+{"name":"tests/lexer/next_token.nim c","category":"pattern","target":"c","action":"run","result":"reSuccess","expected":"","given":"","machine":"Nebula","commit":"989dec1ea7e","branch":"main"}]
