@@ -8,6 +8,9 @@ type
     token*: Token
     name*: Identifier
     value*: Expression
+  ReturnStatement* = ref object of Statement
+    token*: Token
+    returnValue*: Expression
 
   Expression* = ref object of Node
   Identifier* = ref object of Expression
@@ -28,3 +31,4 @@ method tokenLiteral*(this: Program): string =
 
 method tokenLiteral*(this: LetStatement): string = this.token.literal
 method tokenLiteral*(this: Identifier): string = this.token.literal
+method tokenLiteral*(this: ReturnStatement): string = this.token.literal

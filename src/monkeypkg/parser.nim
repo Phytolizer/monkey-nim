@@ -49,10 +49,21 @@ func parseLetStatement(p: var Parser): ast.LetStatement =
   while not p.curTokenIs(token.kSemicolon):
     p.nextToken()
 
+func parseReturnStatement(p: var Parser): ast.ReturnStatement =
+  result = ast.ReturnStatement(token: p.curToken)
+
+  p.nextToken()
+
+  # TODO: skip expressions until ;
+  while not p.curTokenIs(token.kSemicolon):
+    p.nextToken()
+
 func parseStatement(p: var Parser): ast.Statement =
   case p.curToken.kind:
   of token.kLet:
     return p.parseLetStatement()
+  of token.kReturn:
+    return p.parseReturnStatement()
   else:
     return nil
 
