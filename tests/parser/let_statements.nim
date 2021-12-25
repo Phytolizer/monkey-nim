@@ -22,6 +22,7 @@ for i, tt in Tests:
   let l = newLexer(tt.input)
   var p = newParser(l)
   let program = p.parseProgram()
+  p.checkParserErrors()
   if program.isNil:
     raiseAssert fmt"tests[{i}] - parseProgram() returned nil"
   if program.statements.len != 1:

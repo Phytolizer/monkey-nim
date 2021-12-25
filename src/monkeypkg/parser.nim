@@ -1,14 +1,20 @@
 from ast import nil
 from lexer import Lexer, newLexer, nextToken
 from token import Token
+import std/strformat
 
 type Parser* = object
   l: Lexer
   curToken: Token
   peekToken: Token
+  errors*: seq[string]
 
 func newParser*(l: Lexer): Parser =
   Parser(l: l)
+
+func peekError(p: var Parser, kind: token.Kind) =
+  let msg = fmt"expected next token to be {kind}, got {p.peekToken.kind} instead"
+  p.errors.add(msg)
 
 func nextToken(p: var Parser) =
   p.curToken = p.peekToken
@@ -25,6 +31,7 @@ func expectPeek(p: var Parser, kind: token.Kind): bool =
     p.nextToken()
     true
   else:
+    p.peekError(kind)
     false
 
 func parseLetStatement(p: var Parser): ast.LetStatement =

@@ -1,5 +1,15 @@
 from monkeypkg/ast import tokenLiteral
+from monkeypkg/parser import Parser
 import std/strformat
+
+proc checkParserErrors*(p: Parser) =
+  let errors = p.errors
+  if errors.len == 0:
+    return
+
+  for msg in errors:
+    stderr.writeLine(fmt"parser error: '{msg}'")
+  raiseAssert fmt"parser has {errors.len} errors"
 
 func checkLetStatement*(s: ast.Statement, name: string) =
   if s.tokenLiteral() != "let":
