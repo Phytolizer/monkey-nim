@@ -1,8 +1,12 @@
-import std/macros
+import std/[
+  macros,
+  tables,
+]
 
 type TokenKind* = distinct string
 
 proc `==`*(a, b: TokenKind): bool {.borrow.}
+proc `$`*(a: TokenKind): string {.borrow.}
 
 type Token* = object
   kind*: TokenKind
@@ -42,3 +46,12 @@ defineTokenTypes:
     RBRACE* = "}"
     FUNCTION* = "FUNCTION"
     LET* = "LET"
+
+const keywords = static:
+  toTable {
+    "fn": FUNCTION,
+    "let": LET,
+  }
+
+proc lookupIdent*(ident: string): TokenKind =
+  return keywords.getOrDefault(ident, IDENT)

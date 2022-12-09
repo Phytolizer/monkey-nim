@@ -1,3 +1,5 @@
+import std/strutils
+
 from token import nil
 
 type Lexer* = object
@@ -25,7 +27,29 @@ proc newToken(kind: token.TokenKind, ch: char): token.Token =
   result.kind = kind
   result.literal = $ch
 
+const LETTERS = strutils.Letters + {'_'}
+const WHITESPACE = {' ', '\t', '\r', '\n'}
+const DIGITS = {'0'..'9'}
+
+proc readIdentifier(l: var Lexer): string =
+  let position = l.position
+  while l.ch in LETTERS:
+    l.readChar()
+  result = l.input[position ..< l.position]
+
+proc readNumber(l: var Lexer): string =
+  let position = l.position
+  while l.ch in DIGITS:
+    l.readChar()
+  result = l.input[position ..< l.position]
+
+proc skipWhitespace(l: var Lexer) =
+  while l.ch in WHITESPACE:
+    l.readChar()
+
 proc nextToken*(l: var Lexer): token.Token =
+  l.skipWhitespace()
+
   case l.ch
   of '=':
     result = newToken(token.ASSIGN, l.ch)
@@ -45,6 +69,15 @@ proc nextToken*(l: var Lexer): token.Token =
     result = newToken(token.RBRACE, l.ch)
   of '\0':
     result.kind = token.EOF
-  else: discard
+  of LETTERS:
+    result.literal = l.readIdentifier()
+    result.kind = token.lookupIdent(result.literal)
+    return
+  of DIGITS:
+    result.kind = token.INT
+    result.literal = l.readNumber()
+    return
+  else:
+    result = newToken(token.ILLEGAL, l.ch)
 
   l.readChar()

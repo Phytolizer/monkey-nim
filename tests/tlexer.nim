@@ -4,7 +4,7 @@ import std/[
   unittest,
 ]
 
-from monkey/token import `==`
+from monkey/token import `==`, `$`
 import monkey/lexer
 
 suite "lexer":
@@ -28,13 +28,41 @@ suite "lexer":
       Case(expectedKind: kind, expectedLiteral: literal)
 
     const tests = [
+      newCase(token.LET, "let"),
+      newCase(token.IDENT, "five"),
       newCase(token.ASSIGN, "="),
-      newCase(token.PLUS, "+"),
+      newCase(token.INT, "5"),
+      newCase(token.SEMICOLON, ";"),
+      newCase(token.LET, "let"),
+      newCase(token.IDENT, "ten"),
+      newCase(token.ASSIGN, "="),
+      newCase(token.INT, "10"),
+      newCase(token.SEMICOLON, ";"),
+      newCase(token.LET, "let"),
+      newCase(token.IDENT, "add"),
+      newCase(token.ASSIGN, "="),
+      newCase(token.FUNCTION, "fn"),
       newCase(token.LPAREN, "("),
+      newCase(token.IDENT, "x"),
+      newCase(token.COMMA, ","),
+      newCase(token.IDENT, "y"),
       newCase(token.RPAREN, ")"),
       newCase(token.LBRACE, "{"),
+      newCase(token.IDENT, "x"),
+      newCase(token.PLUS, "+"),
+      newCase(token.IDENT, "y"),
+      newCase(token.SEMICOLON, ";"),
       newCase(token.RBRACE, "}"),
+      newCase(token.SEMICOLON, ";"),
+      newCase(token.LET, "let"),
+      newCase(token.IDENT, "result"),
+      newCase(token.ASSIGN, "="),
+      newCase(token.IDENT, "add"),
+      newCase(token.LPAREN, "("),
+      newCase(token.IDENT, "five"),
       newCase(token.COMMA, ","),
+      newCase(token.IDENT, "ten"),
+      newCase(token.RPAREN, ")"),
       newCase(token.SEMICOLON, ";"),
       newCase(token.EOF, ""),
     ]
@@ -44,6 +72,6 @@ suite "lexer":
     for (i, tt) in tests.pairs:
       let tok = l.nextToken()
       checkpoint(fmt"tests[{i}]")
-      check:
+      require:
         tok.kind == tt.expectedKind
         tok.literal == tt.expectedLiteral
